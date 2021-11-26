@@ -1,7 +1,8 @@
 module.exports = {
   productionSourceMap: false,
   devServer: {
-    disableHostCheck: true
+    public: "https://localhost",
+    port: 3001
   },
 
   css: {
