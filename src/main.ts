@@ -14,7 +14,7 @@ Vue.use(PiniaPlugin);
 const pinia = createPinia();
 
 Vue.use(GAuth, {
-  clientId: '648352918255-9oogitha6t9nkm1ej375hl6hdl0aa66t.apps.googleusercontent.com',
+  clientId: process.env.VUE_APP_GOOGLE_CLIENT_ID,
   scope: 'profile email',
   prompt: 'select_account'
 })
