@@ -10,6 +10,22 @@ export default new Vuetify({
     current: "it",
   },
   theme: {
+    options: {
+      customProperties: true,
+    },
+    themes: {
+      dark: {
+        primary: "#00bcd4",
+        secondary: "#b0bec5",
+        accent: "#8c9eff",
+        accent2: "#FF4F8B",
+        error: "#b71c1c",
+        warning: "#ffeb3b",
+        info: "#2196f3",
+        success: "#4caf50",
+        other: "#1E1E1E",
+      }
+    },
     dark: true,
   }
 });

@@ -16,9 +16,24 @@ export default Vue.extend({
 });
 </script>
 
-<style>
+<style lang="scss">
 html{
   overflow-y: auto !important;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--v-other-base);
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--v-accent2-base);
+}
+::-webkit-scrollbar-thumb:window-inactive {
+  background: var(--v-accent2-base);
 }
 </style>
 
