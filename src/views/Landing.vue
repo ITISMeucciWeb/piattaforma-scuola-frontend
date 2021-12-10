@@ -13,7 +13,9 @@
     </v-app-bar>
 
     <v-main class="fill-height flex">
-      <router-view/>
+      <transition name="fade">
+          <router-view/>
+      </transition>
     </v-main>
   </v-app>
 </template>
@@ -62,3 +64,12 @@ export default Vue.extend({
   }
 });
 </script>
+<style scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: transform .3s;
+  position: fixed;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  transform: translateY(100%);
+}
+</style>
