@@ -2,7 +2,7 @@
   <v-app>
     <div id="background"  class="background"/>
     <div id="background-overlay" class="background"/>
-    <v-app-bar elevation="0" class="transparent">
+    <v-app-bar elevation="0" class="transparent" >
       <v-spacer/>
       <v-toolbar-items>
         <v-btn v-for="item in items" v-bind:key="item.text" :to="item.to" plain>
@@ -13,9 +13,9 @@
     </v-app-bar>
 
     <v-main class="fill-height flex">
-      <transition name="fade">
-          <router-view/>
-      </transition>
+        <transition name="fade">
+            <router-view/>
+        </transition>
     </v-main>
   </v-app>
 </template>
@@ -28,9 +28,10 @@
 }
 #background-overlay{
   background-color: rgba(0,0,0,0.6);
+  position: fixed;
 }
 .background{
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
 }
