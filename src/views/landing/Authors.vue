@@ -1,14 +1,14 @@
 <template>
-  <v-container class="fill-height" fluid>
-    <v-row dense>
-      <v-row dense>
+  <v-container class="fill-height">
+      <v-row>
         <v-col
+            :cols="authors.length + 1"
             v-for="author in authors"
             :key="author.nickname"
             class="d-flex"
             style="flex-direction: column"
         >
-          <v-card class="flex-grow-1 d-flex" elevation="6" outlined style="flex-direction: column">
+          <v-card class="flex-grow-1 d-flex" elevation="6"  style="flex-direction: column">
             <v-img
                 :src="author.image"
                 class="flex-grow-0"
@@ -30,7 +30,6 @@
           </v-card>
         </v-col>
       </v-row>
-    </v-row>
   </v-container>
 </template>
 

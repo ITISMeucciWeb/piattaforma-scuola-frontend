@@ -1,36 +1,38 @@
 <template>
   <v-app>
-    <div id="background"  class="background"/>
+    <div id="background" class="background"/>
     <div id="background-overlay" class="background"/>
-    <v-app-bar elevation="0" class="transparent" >
+    <v-app-bar class="transparent" elevation="0">
       <v-spacer/>
       <v-toolbar-items>
         <v-btn v-for="item in items" v-bind:key="item.text" :to="item.to" plain>
-          <v-icon>{{item.icon}}</v-icon>
-          {{item.text}}
+          <v-icon>{{ item.icon }}</v-icon>
+          {{ item.text }}
         </v-btn>
       </v-toolbar-items>
     </v-app-bar>
 
     <v-main class="fill-height flex">
-        <transition name="fade">
-            <router-view/>
-        </transition>
+      <transition @enter="enterBottomAnim" @leave="leaveBottomAnim" v-on:after-enter="afterEnterBottomAnim">
+        <router-view/>
+      </transition>
     </v-main>
   </v-app>
 </template>
 
 <style scoped>
-#background{
+#background {
   background-image: url('~@/assets/background.jpg');
   background-size: cover;
   background-position: center;
 }
-#background-overlay{
-  background-color: rgba(0,0,0,0.6);
+
+#background-overlay {
+  background-color: rgba(0, 0, 0, 0.6);
   position: fixed;
 }
-.background{
+
+.background {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -39,10 +41,49 @@
 
 <script lang="ts">
 import Vue from "vue";
+import gsap from "gsap";
+import {Power4} from "gsap/gsap-core";
 
 export default Vue.extend({
   name: "Home",
-  data: ()=>{
+  methods: {
+    leaveBottomAnim(el, done) {
+      //overflow fix
+      document.getElementsByTagName("body")[0].style.overflowY = "hidden";
+
+      gsap.to(el, {
+        ease: Power4.easeOut,
+        scale: 0,
+        yPercent: 50,
+        duration: .3,
+        onComplete: done,
+      })
+
+    },
+    enterBottomAnim(el, done) {
+      gsap.to(el, {
+        duration: .3,
+        yPercent: 50,
+        onComplete: done,
+        ease: Power4.easeIn,
+        scale: 0,
+      })
+    },
+    afterEnterBottomAnim(el, done) {
+      //overflow fix
+      gsap.to(el, {
+        duration: .4,
+        yPercent: 0,
+        onComplete: () => {
+          document.getElementsByTagName("body")[0].style.overflowY = "auto";
+          done();
+        },
+        ease: Power4.easeIn,
+        scale: 1
+      })
+    }
+  },
+  data: () => {
     return {
       items: [
         {
@@ -65,12 +106,3 @@ export default Vue.extend({
   }
 });
 </script>
-<style scoped>
-.fade-enter-active, .fade-leave-active {
-  transition: transform .3s;
-  position: fixed;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  transform: translateY(100%);
-}
-</style>

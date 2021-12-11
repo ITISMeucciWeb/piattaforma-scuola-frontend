@@ -10,6 +10,7 @@ import GAuth from "vue-google-oauth2";
 
 Vue.use(VueCompositionAPI);
 
+
 Vue.use(PiniaPlugin);
 const pinia = createPinia();
 

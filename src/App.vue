@@ -11,27 +11,29 @@ import Vue from "vue";
 
 export default Vue.extend({
   name: "App",
-  components: {
-  },
+  components: {},
 });
 </script>
 
 <style lang="scss">
-html{
+html {;
   overflow-y: auto !important;
 }
 
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 /* Track */
 ::-webkit-scrollbar-track {
   background: var(--v-other-base);
 }
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: var(--v-accent2-base);
 }
+
 ::-webkit-scrollbar-thumb:window-inactive {
   background: var(--v-accent2-base);
 }
