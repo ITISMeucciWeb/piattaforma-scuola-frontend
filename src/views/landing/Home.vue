@@ -28,7 +28,7 @@ export default {
     async login() {
       this.loginDisabled = true;
       this.isLoading = true;
-      const authWindow = window.open("https://api.localhost/google", "gAuth", "width=300,height=200");
+      const authWindow = window.open("https://api.localhost/google", "gAuth", "width=568,height=560");
       await new Promise((resolve)=>{
         const interval = setInterval(()=>{
           if(authWindow.closed){
