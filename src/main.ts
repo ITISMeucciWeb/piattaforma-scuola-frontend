@@ -6,19 +6,12 @@ import vuetify from "./plugins/vuetify";
 import { createPinia, PiniaPlugin } from "pinia";
 import VueCompositionAPI from "@vue/composition-api";
 import { createProvider } from "./vue-apollo";
-import GAuth from "vue-google-oauth2";
 
 Vue.use(VueCompositionAPI);
 
 
 Vue.use(PiniaPlugin);
 const pinia = createPinia();
-
-Vue.use(GAuth, {
-  clientId: process.env.VUE_APP_GOOGLE_CLIENT_ID,
-  scope: 'profile email',
-  prompt: 'select_account'
-})
 
 Vue.config.productionTip = false;
 

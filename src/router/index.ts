@@ -14,6 +14,11 @@ const routes: Array<RouteConfig> = [
     }
   },
   {
+    path: "/authComplete",
+    name: "AuthComplete",
+    component: () => import(/* webpackChunkName: "chunk-authors" */ "../views/authComplete.vue")
+  },
+  {
     path: "/landing",
     name: "Home",
     redirect: "/landing/home",
