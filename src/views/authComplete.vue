@@ -6,6 +6,8 @@
 export default {
   name: "authComplete",
   beforeMount() {
+    const token = this.$route.query.token;
+    localStorage.setItem("token", token);
     window.close();
   }
 }

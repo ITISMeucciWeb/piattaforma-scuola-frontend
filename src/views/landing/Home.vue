@@ -1,56 +1,63 @@
 <template>
   <v-container class="fill-height" fluid>
-    <v-row class="text-center" align="center" justify="center">
+    <v-row align="center" class="text-center" justify="center">
 
       <v-col class="mb-4">
-        <h1 class="display-4 font-weight-bold mb-15 ">{{schoolName}}</h1>
+        <h1 class="display-4 font-weight-bold mb-15 ">{{ schoolName }}</h1>
         <v-btn
             id="login-button"
-            min-width="15rem"
-            @click="login"
-            :color=loginColor
-            :class="{'disable-events': loginDisabled}"
-            tabindex="-1"
+            :class="{'disable-events': this.userStore.$state.authState !== 'NotLogged'}"
+            :color="this.userStore.$state.authState === 'Logged' ? 'success' : 'accent'"
+            :loading="this.userStore.$state.authState === 'Logging'"
             elevation="9"
-            :loading=isLoading
+            min-width="15rem"
             raised
+            tabindex="-1"
             x-large
-        ><v-icon>{{loginIcon}}</v-icon>{{authText}}</v-btn>
+            @click="login"
+        >
+          <v-icon>{{ this.userStore.$state.authState === "Logged" ? "mdi-check" : "mdi-lock" }}</v-icon>
+          {{ this.userStore.$state.authState === "Logged" ? "AUTENTICATO" : "AUTENTICAZIONE" }}
+        </v-btn>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
-<script>
+<script lang="ts">
+import {useUserStore} from "@/store";
+
 export default {
   name: "Home",
+  setup() {
+    const userStore = useUserStore();
+
+    return {
+      userStore
+    }
+  },
   methods: {
     async login() {
-      this.loginDisabled = true;
-      this.isLoading = true;
+      this.userStore.$state.authState = "Logging";
       const authWindow = window.open("https://api.localhost/google", "gAuth", "width=568,height=560");
-      await new Promise((resolve)=>{
-        const interval = setInterval(()=>{
-          if(authWindow.closed){
+      await new Promise((resolve) => {
+        const interval = setInterval(() => {
+          if (authWindow.closed) {
             clearInterval(interval)
-            resolve();
+            resolve(0);
           }
         }, 100);
       })
-      this.loginColor = "success";
-      this.loginIcon = "mdi-check";
-      this.isLoading = false;
-      this.authText = "AUTENTICATO";
+      this.userStore.$state.authState = "Logged";
+
     }
   },
-  data: ()=>{
+  data: () => {
     return {
       schoolName: process.env.VUE_APP_SCHOOL_NAME,
-      loginIcon: "mdi-lock",
       loginColor: "accent",
       loginDisabled: false,
       isLoading: false,
-      authText: "AUTENTICAZIONE"
     }
   }
 }
@@ -60,7 +67,8 @@ export default {
 .disable-events {
   pointer-events: none;
 }
-#login-button{
+
+#login-button {
   transition: background-color .7s;
 }
 </style>

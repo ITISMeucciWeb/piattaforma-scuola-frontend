@@ -8,9 +8,37 @@
 
 <script lang="ts">
 import Vue from "vue";
+import {useCookies} from "@vueuse/integrations/useCookies";
+import axios from "axios";
+import {useUserStore} from "@/store";
 
 export default Vue.extend({
   name: "App",
+  setup() {
+    const cookies = useCookies()
+    return {
+      cookies,
+    }
+  },
+  async mounted() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+      axios.get("https://api.localhost/google/isAuthenticated", {
+        validateStatus(status) {
+          const userStore = useUserStore();
+
+          if(status === 200){
+            userStore.$patch({authState: "Logged"});
+            return true;
+          }
+          localStorage.removeItem('token');
+          userStore.$patch({authState: "NotLogged"});
+          return true;
+        }
+      })
+    }
+  },
   components: {},
 });
 </script>
