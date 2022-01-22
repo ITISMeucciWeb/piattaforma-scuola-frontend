@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Landing from "@/views/Landing.vue";
 import Home from "@/views/landing/Home.vue";
-import AuthComplete from "@/views/landing/authComplete.vue";
+import AuthComplete from "@/views/authComplete.vue";
 
 Vue.use(VueRouter);
 
