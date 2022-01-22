@@ -2,6 +2,7 @@ import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Landing from "@/views/Landing.vue";
 import Home from "@/views/landing/Home.vue";
+import AuthComplete from "@/views/landing/authComplete.vue";
 
 Vue.use(VueRouter);
 
@@ -16,7 +17,7 @@ const routes: Array<RouteConfig> = [
   {
     path: "/authComplete",
     name: "AuthComplete",
-    component: () => import(/* webpackChunkName: "chunk-authors" */ "../views/authComplete.vue")
+    component: AuthComplete
   },
   {
     path: "/landing",
