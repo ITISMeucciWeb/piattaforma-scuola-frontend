@@ -23,7 +23,7 @@ export default new Vuetify({
         warning: "#ffeb3b",
         info: "#2196f3",
         success: "#4caf50",
-        other: "#1E1E1E",
+        other: "#373737",
       }
     },
     dark: true,

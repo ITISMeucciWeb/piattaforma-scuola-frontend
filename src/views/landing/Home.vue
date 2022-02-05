@@ -26,9 +26,10 @@
 
 <script lang="ts">
 import {useUserStore} from "@/store";
+import {parseJWT} from "@/utils";
 
 export default {
-  name: "Home",
+  name: "Home - Landing",
   setup() {
     const userStore = useUserStore();
 
@@ -48,8 +49,9 @@ export default {
           }
         }, 100);
       })
+      this.userStore.$state.user = parseJWT(localStorage.getItem("token"));
       this.userStore.$state.authState = "Logged";
-
+      this.$router.push("/board");
     }
   },
   data: () => {

@@ -6,9 +6,12 @@ import vuetify from "./plugins/vuetify";
 import { createPinia, PiniaPlugin } from "pinia";
 import VueCompositionAPI from "@vue/composition-api";
 import { createProvider } from "./vue-apollo";
+import VuePageTransition from 'vue-page-transition'
+
 
 Vue.use(VueCompositionAPI);
 
+Vue.use(VuePageTransition)
 
 Vue.use(PiniaPlugin);
 const pinia = createPinia();
