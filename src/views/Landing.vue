@@ -22,7 +22,7 @@
 
 <style scoped>
 #background {
-  background-image: url('~@/assets/background.jpg');
+  background-image: url('@/assets/background.jpg');
   background-size: cover;
   background-position: center;
 }
@@ -45,7 +45,7 @@ import gsap from "gsap";
 import {Power4} from "gsap/gsap-core";
 
 export default Vue.extend({
-  name: "Home",
+  name: "Landing-Home",
   methods: {
     leaveBottomAnim(el, done) {
       //overflow fix

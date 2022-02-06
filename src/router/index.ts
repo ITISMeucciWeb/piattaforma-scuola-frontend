@@ -39,11 +39,11 @@ const routes: Array<RouteConfig> = [
       },
       {
         path: "authors",
-        component: () => import(/* webpackChunkName: "chunk-authors" */ "../views/landing/Authors.vue")
+        component: () => import("../views/landing/Authors.vue")
       },
       {
         path: "privacy",
-        component: () => import(/* webpackChunkName: "chunk-privacy" */ "../views/landing/Privacy.vue")
+        component: () => import("../views/landing/Privacy.vue")
       }
     ]
   },
@@ -56,12 +56,12 @@ const routes: Array<RouteConfig> = [
       {
         path: "dashboard",
         name: "Dashboard",
-        component: () => import(/* webpackChunkName: "chunk-dashboard" */ "../views/board/Dashboard.vue")
+        component: () => import("../views/board/Dashboard.vue")
       },
       {
         path: "models",
         name: "Models",
-        component: () => import(/* webpackChunkName: "chunk-modelli" */ "../views/board/Models.vue")
+        component: () => import("../views/board/Models.vue")
       }
     ],
     async beforeEnter(to, from ,next){
@@ -74,7 +74,7 @@ const routes: Array<RouteConfig> = [
 
 const router = new VueRouter({
   mode: "history",
-  base: process.env.BASE_URL,
+  base: import.meta.env.BASE_URL,
   routes,
 });
 

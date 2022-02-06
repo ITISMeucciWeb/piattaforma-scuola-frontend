@@ -105,7 +105,7 @@
 
 <style scoped>
 #background {
-  background-image: url('~@/assets/background.jpg');
+  background-image: url('../assets/background.jpg');
   background-size: cover;
   background-position: center;
 }
@@ -126,7 +126,7 @@
 import {useUserStore} from "@/store";
 
 export default {
-  name: "Board",
+  name: "Board-Layout",
   setup() {
     const userStore = useUserStore();
 
@@ -157,7 +157,7 @@ export default {
   },
   data: () => {
     return {
-      schoolName: process.env.VUE_APP_SCHOOL_NAME,
+      schoolName: import.meta.env.VUE_APP_SCHOOL_NAME,
       items: [
         {
           text: 'Dashboard',

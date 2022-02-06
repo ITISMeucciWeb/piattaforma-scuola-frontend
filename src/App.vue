@@ -11,7 +11,7 @@ import Vue from "vue";
 import {useCookies} from "@vueuse/integrations/useCookies";
 
 export default Vue.extend({
-  name: "App",
+  name: "App-vue",
   setup() {
     const cookies = useCookies()
     return {

@@ -5,8 +5,8 @@ import router from "./router";
 import vuetify from "./plugins/vuetify";
 import { createPinia, PiniaPlugin } from "pinia";
 import VueCompositionAPI from "@vue/composition-api";
-import { createProvider } from "./vue-apollo";
 import VuePageTransition from 'vue-page-transition'
+import {apolloProvider} from "@/vue-apollo";
 
 
 Vue.use(VueCompositionAPI);
@@ -22,6 +22,6 @@ new Vue({
   router,
   vuetify,
   pinia,
-  apolloProvider: createProvider(),
+  apolloProvider,
   render: (h) => h(App),
 }).$mount("#app");

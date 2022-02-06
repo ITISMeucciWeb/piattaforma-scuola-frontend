@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "authComplete",
+  name: "auth-Complete",
   beforeMount() {
     const token = this.$route.query.token;
     localStorage.setItem("token", token);

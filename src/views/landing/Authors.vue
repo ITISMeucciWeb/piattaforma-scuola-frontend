@@ -34,13 +34,15 @@
 </template>
 
 <script>
+import DreamingImage from "@/assets/authors/DreamingCodes.gif";
+
 export default {
-  name: "Authors",
+  name: "Authors-page",
   data: () => {
     return {
       authors: [
         {
-          image: require("@/assets/authors/DreamingCodes.gif"),
+          image: DreamingImage,
           name: "Lorenzo Rizzotti",
           nickname: 'DreamingCodes',
           class: "3C-IA",

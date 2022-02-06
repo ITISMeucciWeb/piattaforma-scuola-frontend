@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: "Dashboard"
+  name: "Dashboard-page"
 }
 </script>
 

@@ -143,7 +143,7 @@
 
 <script>
 export default {
-  name: "Privacy"
+  name: "Privacy-page"
 }
 </script>
 

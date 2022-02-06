@@ -29,7 +29,7 @@ import {useUserStore} from "@/store";
 import {parseJWT} from "@/utils";
 
 export default {
-  name: "Home - Landing",
+  name: "Home-Landing",
   setup() {
     const userStore = useUserStore();
 
@@ -56,7 +56,7 @@ export default {
   },
   data: () => {
     return {
-      schoolName: process.env.VUE_APP_SCHOOL_NAME,
+      schoolName: import.meta.env.VUE_APP_SCHOOL_NAME,
       loginColor: "accent",
       loginDisabled: false,
       isLoading: false,
