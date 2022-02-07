@@ -101,7 +101,7 @@ const config: UserConfig ={
         */
     },
     server:{
-        port: 3000,
+        port: 3001,
         open: true,
         hmr: {
             port: 443
