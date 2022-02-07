@@ -35,7 +35,7 @@ const config: UserConfig ={
         // https://github.com/antfu/unplugin-vue-components
         Components({
             // generate `components.d.ts` global declarations
-            dts: true,
+            dts: false,
             // auto import for directives
             directives: false,
             // resolvers for custom components
