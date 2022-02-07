@@ -48,7 +48,7 @@
                     <template v-slot:activator>
                       <v-list-item-title>{{ item.text }}</v-list-item-title>
                     </template>
-                    <v-list-item v-for="subItem in item.items" :key="subItem.text" :to="subItem.to" class="mx-3" link>
+                    <v-list-item v-for="subItem in item.items" :key="subItem.text" :to="subItem.to" class="ml-3" link>
                       <v-list-item-icon>
                         <v-icon>{{ subItem.icon }}</v-icon>
                       </v-list-item-icon>
@@ -105,13 +105,13 @@
 
 <style scoped>
 #background {
-  background-image: url('../assets/background.jpg');
+  background-image: url("../assets/background.jpg");
   background-size: cover;
   background-position: center;
 }
 
 #background-overlay {
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 60%);
   position: fixed;
 }
 

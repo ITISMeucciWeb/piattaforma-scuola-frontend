@@ -2,131 +2,62 @@ import {defineConfig, UserConfig} from 'vite'
 import * as path from "path";
 import Components from 'unplugin-vue-components/vite';
 import {createVuePlugin} from "vite-plugin-vue2";
-import * as fs from "fs";
 import {VuetifyResolver} from "unplugin-vue-components/resolvers";
 import eslintPlugin from "vite-plugin-eslint";
-import viteStylelint from "@amatlash/vite-plugin-stylelint";
+import viteCompression from 'vite-plugin-compression';
+import EnvironmentPlugin from "vite-plugin-environment";
 
-// https://vitejs.dev/config/
-const config: UserConfig ={
-    base: '/',
-    resolve: {
-        extensions: ['.ts', '.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
-        alias: [
-            {
-                find: '@/',
-                // eslint-disable-next-line no-undef
-                replacement: `${path.resolve(__dirname, './src')}/`,
-            },
-            {
-                find: 'src/',
-                // eslint-disable-next-line no-undef
-                replacement: `${path.resolve(__dirname, './src')}/`,
-            },
-        ],
-    },
-    plugins: [
-        // Vue2
-        // https://github.com/underfin/vite-plugin-vue2
-        createVuePlugin({
-            target: 'esnext',
-        }),
-        // unplugin-vue-components
-        // https://github.com/antfu/unplugin-vue-components
-        Components({
-            // generate `components.d.ts` global declarations
-            dts: false,
-            // auto import for directives
-            directives: false,
-            // resolvers for custom components
-            resolvers: [
-                // Vuetify
-                VuetifyResolver(),
+export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
+    return {
+        base: '/',
+        resolve: {
+            extensions: ['.ts', '.mjs', '.js', '.ts', '.jsx', '.tsx', '.json', '.vue'],
+            alias: [
+                {
+                    find: '@/',
+                    replacement: `${path.resolve(__dirname, './src')}/`,
+                },
+                {
+                    find: 'src/',
+                    replacement: `${path.resolve(__dirname, './src')}/`,
+                },
             ],
-        }),
-        // eslint
-        // https://github.com/gxmari007/vite-plugin-eslint
-        eslintPlugin({
-            fix: true,
-        }),
-        // Stylelint
-        // https://github.com/gxmari007/vite-plugin-eslint
-        viteStylelint(),
-        // compress assets
-        // https://github.com/vbenjs/vite-plugin-compression
-        // viteCompression(),
-    ],
-    css: {
-        // https://vitejs.dev/config/#css-preprocessoroptions
-        preprocessorOptions: {
-            sass: {
-                additionalData: [
-                    // vuetify variable overrides
-                    //'@import "@/styles/variables.scss"',
-                    '',
-                ].join('\n'),
-            },
         },
-    },
-    // Build Options
-    // https://vitejs.dev/config/#build-options
-    build: {
-        rollupOptions: {
-            output: {
-                plugins: [
-                    /*
-                    // if you use Code encryption by rollup-plugin-obfuscator
-                    obfuscator({
-                      globalOptions: {
-                        debugProtection: true,
-                      },
-                    }),
-                    */
+        plugins: [
+            EnvironmentPlugin({
+                "VUE_APP_SCHOOL_NAME": "ITIS Meucci",
+            }, { defineOn: 'import.meta.env' }),
+            // Vue2
+            // https://github.com/underfin/vite-plugin-vue2
+            createVuePlugin({
+                target: 'esnext',
+            }),
+            // unplugin-vue-components
+            // https://github.com/antfu/unplugin-vue-components
+            Components({
+                dts: false,
+                // auto import for directives
+                directives: false,
+                // resolvers for custom components
+                resolvers: [
+                    // Vuetify
+                    VuetifyResolver(),
                 ],
-            },
-        },
-        target: 'es2021',
-        /*
-        // Minify option
-        // https://vitejs.dev/config/#build-minify
-        minify: 'terser',
-        terserOptions: {
-          ecma: 2020,
-          parse: {},
-          compress: { drop_console: true },
-          mangle: true, // Note `mangle.properties` is `false` by default.
-          module: true,
-          output: { comments: true, beautify: false },
-        },
-        */
-    },
-    server:{
-        port: 3001,
-        open: true,
-        hmr: {
-            port: 443
+            }),
+            eslintPlugin({
+                fix: true,
+            }),
+            // compress assets
+            // https://github.com/vbenjs/vite-plugin-compression
+            viteCompression(),
+        ],
+        server:{
+            port: 3001,
+            open: true,
+            hmr: {
+                port: 443
+            }
         }
-    }
 
-}
-
-// Export vite config
-export default defineConfig(async ({ command }): Promise<UserConfig> => {
-    // Hook production build.
-    if (command === 'build') {
-        // Write meta data.
-        fs.writeFileSync(
-            path.resolve(path.join(__dirname, 'src/Meta.ts')),
-            `import MetaInterface from '@/interfaces/MetaInterface';
-// This file is auto-generated by the build system.
-const meta: MetaInterface = {
-  version: '${require('./package.json').version}',
-  date: '${new Date().toISOString()}',
-};
-export default meta;
-`
-        );
-    }
-
-    return config;
+    };
 });

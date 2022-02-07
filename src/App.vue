@@ -11,7 +11,7 @@ import Vue from "vue";
 import {useCookies} from "@vueuse/integrations/useCookies";
 
 export default Vue.extend({
-  name: "App-vue",
+  name: "Piattaforma-"+ "import.meta.env.VUE_APP_SCHOOL_NAME".toLowerCase().replace(" ", "-"),
   setup() {
     const cookies = useCookies()
     return {
@@ -23,7 +23,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-html {;
+html {
   overflow-y: auto !important;
 }
 

@@ -57,9 +57,6 @@ export default {
   data: () => {
     return {
       schoolName: import.meta.env.VUE_APP_SCHOOL_NAME,
-      loginColor: "accent",
-      loginDisabled: false,
-      isLoading: false,
     }
   }
 }
@@ -71,6 +68,6 @@ export default {
 }
 
 #login-button {
-  transition: background-color .7s;
+  transition: background-color 0.7s;
 }
 </style>

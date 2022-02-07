@@ -22,13 +22,13 @@
 
 <style scoped>
 #background {
-  background-image: url('@/assets/background.jpg');
+  background-image: url("../assets/background.jpg");
   background-size: cover;
   background-position: center;
 }
 
 #background-overlay {
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 60%);
   position: fixed;
 }
 
