@@ -62,6 +62,11 @@ const routes: Array<RouteConfig> = [
         path: "models",
         name: "Models",
         component: () => import("../views/board/Models.vue")
+      },
+      {
+        path: "import",
+        name: "Import",
+        component: () => import("../views/board/Import.vue")
       }
     ],
     async beforeEnter(to, from ,next){

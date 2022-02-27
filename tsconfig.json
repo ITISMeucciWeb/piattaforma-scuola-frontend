@@ -14,7 +14,8 @@
     "types": [
       "jest",
       "vite/client",
-      "@types/node"
+      "@types/node",
+      "vue-sweetalert2"
     ],
     "paths": {
       "@/*": [

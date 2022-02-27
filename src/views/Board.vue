@@ -183,6 +183,11 @@ export default {
               icon: 'mdi-file-document',
               to: '/board/models'
             },
+            {
+              text: "Import",
+              icon: 'mdi-file-import',
+              to: '/board/import'
+            }
           ]
         }
       ]
