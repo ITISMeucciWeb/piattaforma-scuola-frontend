@@ -2,7 +2,7 @@
   <v-container class="fill-height pa-0" fluid>
     <v-col v-for="(upload, index) in uploadsType" :key="index">
       <input ref="fileHandler" :accept="upload.fileType" class="d-none" type="file" @change="upload.handler">
-      <v-card elevation="6" @dragenter.prevent @dragover.prevent @drop.prevent="upload.handler">
+      <v-card color="other" elevation="6" @dragenter.prevent @dragover.prevent @drop.prevent="upload.handler">
         <v-responsive aspect-ratio="1.1">
           <v-card-title class="justify-center">{{ upload.title }}</v-card-title>
           <v-card-actions class="justify-center fill-height">
@@ -14,13 +14,29 @@
   </v-container>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from "vue";
+import * as XLSX from "xlsx";
+import gql from "graphql-tag";
+
 function getFileFromEvent(event) {
-  if(event.type === 'drop'){
+  if (event.type === 'drop') {
     return event.dataTransfer.files[0];
-  }else{
+  } else {
     return event.target.files[0];
   }
+}
+
+//TODO: RENDER CONDIVISI CON BACKEND #1
+interface Teacher {
+  name: string;
+  surname: string;
+}
+
+interface Class {
+  division: number;
+  section: string;
+  teachers: { id: number[], subjects: string[] }[];
 }
 
 export default {
@@ -34,6 +50,17 @@ export default {
     }
   },
   methods: {
+    sendTimetable(timetable: Class[]): Promise<boolean> {
+      return this.$apollo.mutate({
+        mutation: gql`
+          mutation ($timetable: dataTimetable!) {
+            importTimetable(data: $timetable)
+          }`,
+        variables: {
+          timetable: timetable
+        }
+      })
+    },
     openFileHandler(index) {
       this.$refs.fileHandler[index].click();
     },
@@ -43,7 +70,122 @@ export default {
         this.$swal("Errore", "Tipo di file non valido, TIPI VALIDI:" + this.uploadsType[1].fileType, "error");
         return;
       }
-      console.log("Uploading orario");
+
+      Vue.swal({
+        title: "Caricamento orario",
+        text: "Caricamento in corso...",
+        icon: "info",
+        allowOutsideClick: false,
+        showConfirmButton: false,
+        didOpen() {
+          Vue.swal.showLoading();
+        }
+      });
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const contents = e.target.result;
+        /**
+         * Array of teachers
+         */
+        const profs: Teacher[] = [];
+        const classes: Class[] = [];
+        const lessons = new DOMParser().parseFromString(contents as string, 'text/xml').getElementsByTagName("LESSON");
+
+        for (let lesson of lessons) {
+          //Get an array of prof surname + names
+          const profNames = Array.from(lesson.getElementsByTagName("TEACHER")).map(prof => {
+            return prof.childNodes[0].nodeValue
+          });
+          /**
+           * Indexes of prof of the current iteration
+           */
+          let profIndexes: number[] = [];
+
+          //Fill profIndexes and profs array
+          profNames.forEach(element => {
+            const splittedName = element.split(" ");
+            const name = splittedName[splittedName.length - 1]
+            let surname = splittedName[0];
+            for (let j = 1; j < splittedName.length - 1; j++) {
+              surname += " " + splittedName[j];
+            }
+
+            let prof = profs.findIndex((profElement) => profElement.name === name && profElement.surname === surname)
+            if (prof === -1) {
+              prof = profs.length;
+              profs.push({
+                name,
+                surname
+              });
+            }
+            profIndexes.push(prof);
+          })
+
+          //Get groups (section + division + other)
+          const groups = lesson.getElementsByTagName("GROUP");
+          //Check if the lesson has groups
+          if (groups.length !== 0) {
+            const group = groups[0].childNodes[0].nodeValue;
+            const division = Number(group[0]);
+            const className = group.replace(" - ", "").replace(/(\d\^)|(-)|(_(.*?)$)|( (.*?)$)/gmiu, "");
+            if (className === "ART") {
+              continue;
+            }
+            const subjectName = lesson.getElementsByTagName("SUBJECT")[0].childNodes[0].nodeValue.replace(" LAB", "");
+            const cls = classes.findIndex(cls => cls.section === className && cls.division === division);
+            if (cls === -1) {
+              classes.push({
+                section: className,
+                division: division,
+                teachers: [{
+                  id: profIndexes,
+                  subjects: [subjectName]
+                }]
+              });
+            } else {
+              const teacher = classes[cls].teachers.findIndex(element => element.id[0] === profIndexes[0]);
+              if (teacher === -1) {
+                classes[cls].teachers.push({
+                  id: profIndexes,
+                  subjects: [subjectName]
+                });
+              } else {
+                profIndexes.forEach((index) => {
+                  if (!classes[cls].teachers[teacher].id.includes(index)) {
+                    classes[cls].teachers[teacher].id.push(index)
+                  }
+                })
+                if (!classes[cls].teachers[teacher].subjects.includes(subjectName)) {
+                  classes[cls].teachers[teacher].subjects.push(subjectName);
+                }
+              }
+            }
+          }
+
+        }
+        if (profs.length !== 0 && classes.length !== 0) {
+          Vue.swal.fire({
+            title: "Caricamento orario",
+            html: "Caricamento completato<br>Upload in corso...",
+            icon: "info",
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            didOpen() {
+              Vue.swal.showLoading();
+            }
+          });
+        } else {
+          Vue.swal.fire({
+            title: "Caricamento orario",
+            text: "Caricamento non riuscito",
+            icon: "error",
+            showConfirmButton: false,
+            timer: 3000
+          });
+        }
+        console.log({teachers: profs, classes})
+      };
+      reader.readAsText(file);
     },
     studentiHandler(e) {
       let file = getFileFromEvent(e);
@@ -52,6 +194,76 @@ export default {
         this.$swal("Errore", "Tipo di file non valido, TIPI VALIDI:" + this.uploadsType[1].fileType, "error");
         return;
       }
+
+      Vue.swal.fire({
+        title: "Elaborazione studenti",
+        text: "Elaborazione in corso",
+        allowOutsideClick: false,
+        icon: "info",
+        showConfirmButton: false,
+        didOpen() {
+          Vue.swal.showLoading();
+        }
+      });
+
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        const contents = e.target.result;
+        const workbook = XLSX.read(contents, {
+          type: 'binary'
+        });
+        let rawData;
+        workbook.SheetNames.forEach(sheetName => {
+          // @ts-ignore
+          const XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
+
+          rawData = XL_row_object
+        })
+        let info = [];
+        // console.log(rawData)
+
+        rawData.forEach(person => {
+          // console.log(person)
+          let {"PART_ANAGRAFICHE ": disorder} = person;
+          // /\[...\]/gmi
+          const regex = /(?<=\[)(.*?)(?=\])/gmi
+          const found = disorder.match(regex) || []
+          info.push({
+            class: person["CL "],
+            section: person["SEZ "],
+            name: person["NOME "],
+            surname: person["COGNOME "],
+            fiscalCode: person["COD_FISC "],
+            disorder: found
+          })
+        })
+        if (info.length !== 0) {
+          Vue.swal.fire({
+            title: "Elebarazione studenti",
+            html: "Elaborazione completata<br>Upload in corso...",
+            icon: "info",
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            didOpen() {
+              Vue.swal.showLoading();
+            }
+          })
+        } else {
+          Vue.swal.fire({
+            title: "Elaborazione studenti",
+            text: "Elabarazione non riuscita",
+            icon: "error",
+            showConfirmButton: false,
+            timer: 3000
+          })
+        }
+      }
+      reader.onerror = function (ex) {
+        Vue.swal("Errore", "Errore nell'elaborazione del file", "error");
+        console.log(ex);
+      };
+      reader.readAsBinaryString(file);
+
       console.log("Uploading studenti");
     }
   }

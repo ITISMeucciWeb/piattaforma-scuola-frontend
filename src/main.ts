@@ -8,7 +8,7 @@ import VueCompositionAPI from "@vue/composition-api";
 import VuePageTransition from 'vue-page-transition'
 import {apolloProvider} from "@/vue-apollo";
 import VueSweetalert2 from 'vue-sweetalert2';
-import 'sweetalert2/dist/sweetalert2.min.css';
+import '@sweetalert2/theme-dark/dark.css';
 
 Vue.use(VueCompositionAPI);
 

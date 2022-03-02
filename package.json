@@ -10,6 +10,7 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src"
   },
   "dependencies": {
+    "@sweetalert2/theme-dark": "^5.0.10",
     "@vue/composition-api": "^1.4.1",
     "@vueuse/core": "^7.2.2",
     "@vueuse/integrations": "^7.5.4",
