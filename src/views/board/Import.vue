@@ -39,6 +39,11 @@ interface Class {
   teachers: { id: number[], subjects: string[] }[];
 }
 
+interface dataTimetable{
+  teachers: Teacher[];
+  classes: Class[];
+}
+
 export default {
   name: "Import-admin",
   data() {
@@ -50,7 +55,7 @@ export default {
     }
   },
   methods: {
-    sendTimetable(timetable: Class[]): Promise<boolean> {
+    sendTimetable(timetable: dataTimetable): Promise<boolean> {
       return this.$apollo.mutate({
         mutation: gql`
           mutation ($timetable: dataTimetable!) {
@@ -82,7 +87,7 @@ export default {
         }
       });
       const reader = new FileReader();
-      reader.onload = function (e) {
+      reader.onload = async (e) => {
         const contents = e.target.result;
         /**
          * Array of teachers
@@ -183,7 +188,25 @@ export default {
             timer: 3000
           });
         }
-        console.log({teachers: profs, classes})
+        const result = await this.sendTimetable({teachers: profs, classes});
+        if(result.data.importTimetable){
+          Vue.swal.fire({
+            title: "Upload orario",
+            text: "Upload completato",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 3000
+          });
+        }else{
+          Vue.swal.fire({
+            title: "Upload orario",
+            html: "Upload non riuscito<br>Se il problema persiste si prega di contattare l'amministratore",
+            icon: "error",
+            showConfirmButton: false,
+            timer: 3000
+          });
+        }
+        console.log(result)
       };
       reader.readAsText(file);
     },
