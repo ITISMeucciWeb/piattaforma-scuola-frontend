@@ -44,6 +44,15 @@ interface dataTimetable{
   classes: Class[];
 }
 
+interface StudentInfo {
+  division: string,
+  class: number,
+  name: string,
+  surname: string,
+  fiscalCode: string,
+  disorder: string
+}
+
 export default {
   name: "Import-admin",
   data() {
@@ -63,6 +72,17 @@ export default {
           }`,
         variables: {
           timetable: timetable
+        }
+      })
+    },
+    sendStudents(students: StudentInfo[]): Promise<boolean> {
+      return this.$apollo.mutate({
+        mutation: gql`
+          mutation ($students: [StudentInfo!]!) {
+            importStudents(students: $students)
+          }`,
+        variables: {
+          students: students
         }
       })
     },
@@ -230,7 +250,7 @@ export default {
       });
 
       const reader = new FileReader();
-      reader.onload = function (e) {
+      reader.onload = async (e) => {
         const contents = e.target.result;
         const workbook = XLSX.read(contents, {
           type: 'binary'
@@ -238,28 +258,27 @@ export default {
         let rawData;
         workbook.SheetNames.forEach(sheetName => {
           // @ts-ignore
-          const XL_row_object = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName]);
-
-          rawData = XL_row_object
+          rawData = XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName])
         })
-        let info = [];
+        let info: StudentInfo[] = [];
         // console.log(rawData)
 
         rawData.forEach(person => {
           // console.log(person)
           let {"PART_ANAGRAFICHE ": disorder} = person;
           // /\[...\]/gmi
-          const regex = /(?<=\[)(.*?)(?=\])/gmi
+          const regex = /(?<=\[)(.*?)(?=])/gmi
           const found = disorder.match(regex) || []
           info.push({
-            class: person["CL "],
-            section: person["SEZ "],
+            division: person["CL "],
+            class: Number(person["SEZ "]),
             name: person["NOME "],
             surname: person["COGNOME "],
             fiscalCode: person["COD_FISC "],
             disorder: found
           })
         })
+
         if (info.length !== 0) {
           Vue.swal.fire({
             title: "Elebarazione studenti",
@@ -279,6 +298,26 @@ export default {
             showConfirmButton: false,
             timer: 3000
           })
+        }
+
+
+        const result = await this.sendStudents(info);
+        if(result.data.importTimetable){
+          Vue.swal.fire({
+            title: "Upload studenti",
+            text: "Upload completato",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 3000
+          });
+        }else{
+          Vue.swal.fire({
+            title: "Upload orario",
+            html: "Upload non riuscito<br>Hai importato prima le relative classi?",
+            icon: "error",
+            showConfirmButton: false,
+            timer: 3000
+          });
         }
       }
       reader.onerror = function (ex) {

@@ -19,7 +19,7 @@
             </v-card-subtitle>
             <v-card-text class="flex-grow-1">
               {{ author.nickname }}<br>
-              {{ author.class }}
+              {{ author.division }}
             </v-card-text>
             <v-card-text>
               <v-chip v-for="chip in author.chips" v-bind:key="chip.text" :color="chip.color" class="mr-3 pr-4 mb-3">
