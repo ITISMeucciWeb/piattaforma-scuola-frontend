@@ -304,7 +304,7 @@ export default {
 
 
         const result = await this.sendStudents(info);
-        if(result.data.importTimetable){
+        if(result.data.importStudents){
           Vue.swal.fire({
             title: "Upload studenti",
             text: "Upload completato",
