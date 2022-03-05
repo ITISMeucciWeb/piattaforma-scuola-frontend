@@ -1,7 +1,7 @@
 <template>
   <v-container class="fill-height pa-0" fluid>
     <v-col v-for="(upload, index) in uploadsType" :key="index">
-      <input ref="fileHandler" :accept="upload.fileType" class="d-none" type="file" @change="upload.handler">
+      <input ref="fileHandler" :accept="upload.fileType" class="d-none" type="file" @change="handleFileChose(index, $event)">
       <v-card color="other" elevation="6" @dragenter.prevent @dragover.prevent @drop.prevent="upload.handler">
         <v-responsive aspect-ratio="1.1">
           <v-card-title class="justify-center">{{ upload.title }}</v-card-title>
@@ -64,6 +64,10 @@ export default {
     }
   },
   methods: {
+    handleFileChose(index: number, event: Event) {
+      this.uploadsType[index].handler(event);
+      this.$refs.fileHandler[index].value = "";
+    },
     sendTimetable(timetable: dataTimetable): Promise<boolean> {
       return this.$apollo.mutate({
         mutation: gql`
