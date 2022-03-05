@@ -45,8 +45,8 @@ interface dataTimetable{
 }
 
 interface StudentInfo {
-  division: number,
-  class: string,
+  division: string,
+  class: number,
   name: string,
   surname: string,
   fiscalCode: string,
@@ -272,8 +272,8 @@ export default {
           const regex = /(?<=\[)(.*?)(?=])/gmi
           const found = disorder.match(regex) || []
           info.push({
-            class: person["CL "],
-            division: Number(person["SEZ "]),
+            division: person["CL "],
+            class: Number(person["SEZ "]),
             name: person["NOME "],
             surname: person["COGNOME "],
             fiscalCode: person["COD_FISC "],
