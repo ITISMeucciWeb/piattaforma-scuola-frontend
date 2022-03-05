@@ -27,15 +27,15 @@ function getFileFromEvent(event) {
   }
 }
 
-//TODO: RENDER CONDIVISI CON BACKEND #1
+//TODO: CONDIVISI CON BACKEND #1
 interface Teacher {
   name: string;
   surname: string;
 }
 
 interface Class {
-  division: number;
-  section: string;
+  division: string;
+  class: number;
   teachers: { id: number[], subjects: string[] }[];
 }
 
@@ -45,8 +45,8 @@ interface dataTimetable{
 }
 
 interface StudentInfo {
-  division: string,
-  class: number,
+  division: number,
+  class: string,
   name: string,
   surname: string,
   fiscalCode: string,
@@ -157,11 +157,11 @@ export default {
               continue;
             }
             const subjectName = lesson.getElementsByTagName("SUBJECT")[0].childNodes[0].nodeValue.replace(" LAB", "");
-            const cls = classes.findIndex(cls => cls.section === className && cls.division === division);
+            const cls = classes.findIndex(cls => cls.division === className && cls.class === division);
             if (cls === -1) {
               classes.push({
-                section: className,
-                division: division,
+                class: division,
+                division: className,
                 teachers: [{
                   id: profIndexes,
                   subjects: [subjectName]
@@ -208,6 +208,7 @@ export default {
             timer: 3000
           });
         }
+        console.log({teachers: profs, classes})
         const result = await this.sendTimetable({teachers: profs, classes});
         if(result.data.importTimetable){
           Vue.swal.fire({
@@ -270,8 +271,8 @@ export default {
           const regex = /(?<=\[)(.*?)(?=])/gmi
           const found = disorder.match(regex) || []
           info.push({
-            division: person["CL "],
-            class: Number(person["SEZ "]),
+            class: person["CL "],
+            division: Number(person["SEZ "]),
             name: person["NOME "],
             surname: person["COGNOME "],
             fiscalCode: person["COD_FISC "],
