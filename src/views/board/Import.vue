@@ -50,7 +50,7 @@ interface StudentInfo {
   name: string,
   surname: string,
   fiscalCode: string,
-  disorder: string
+  disorders: string[],
 }
 
 export default {
@@ -272,12 +272,12 @@ export default {
           const regex = /(?<=\[)(.*?)(?=])/gmi
           const found = disorder.match(regex) || []
           info.push({
-            division: person["CL "],
-            class: Number(person["SEZ "]),
+            class: Number(person["CL "]),
+            division: person["SEZ "],
             name: person["NOME "],
             surname: person["COGNOME "],
             fiscalCode: person["COD_FISC "],
-            disorder: found
+            disorders: found
           })
         })
 
