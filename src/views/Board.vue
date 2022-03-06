@@ -165,6 +165,11 @@ export default {
           to: '/board/dashboard'
         },
         {
+          text: "Studenti",
+          icon: 'mdi-account-multiple',
+          to: '/board/students'
+        },
+        {
           text: 'Admin',
           icon: 'mdi-account-key',
           items: [
