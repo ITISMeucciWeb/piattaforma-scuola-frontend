@@ -165,16 +165,6 @@ export default {
           to: '/board/dashboard'
         },
         {
-          text: 'Autori',
-          icon: 'mdi-account-group',
-          to: '/board/authors'
-        },
-        {
-          text: 'Privacy policy',
-          icon: 'mdi-cookie',
-          to: '/board/privacy'
-        },
-        {
           text: 'Admin',
           icon: 'mdi-account-key',
           items: [
