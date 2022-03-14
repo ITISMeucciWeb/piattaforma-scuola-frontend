@@ -151,7 +151,7 @@ export default {
         }
       })
       return items.find((item) => {
-        return item.to === this.$route.path;
+        return this.$route.path.startsWith(item.to)
       });
     }
   },
@@ -165,11 +165,6 @@ export default {
           to: '/board/dashboard'
         },
         {
-          text: "Studenti",
-          icon: 'mdi-account-multiple',
-          to: '/board/students'
-        },
-        {
           text: 'Admin',
           icon: 'mdi-account-key',
           items: [
@@ -177,6 +172,11 @@ export default {
               text: "Modelli",
               icon: 'mdi-file-document',
               to: '/board/models'
+            },
+            {
+              text: "Utenti",
+              icon: 'mdi-account-multiple',
+              to: '/board/users'
             },
             {
               text: "Import",

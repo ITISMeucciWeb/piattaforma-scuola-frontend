@@ -15,6 +15,9 @@
             {{ item.hasDisorders ? "mdi-checkbox-marked" : "mdi-checkbox-blank-outline" }}
           </v-icon>
         </template>
+        <template v-slot:[`item.avatar`]="{ item }">
+          <v-img contain :height="50" :width="50" class="rounded-circle" v-if="item.avatar" :src="item.avatar"></v-img>
+        </template>
       </v-data-table>
     </v-card>
   </v-container>
@@ -26,7 +29,7 @@
 import gql from "graphql-tag";
 
 export default {
-  name: "Students-list",
+  name: "Users-list",
   apollo: {
     getUsersByName: {
       query: gql`
@@ -34,12 +37,16 @@ export default {
           getUsersByName(from: $from, limit: $limit, nameSearch: $nameSearch){
             count
             users {
+              _id
+              avatar
               name
               surname
               class
               division
               role
               hasDisorders
+              fiscalCode
+              email
             }
           }
         }`,
@@ -60,13 +67,33 @@ export default {
       page: 1,
       tableHeaders: [
         {
-          text: "Name",
+          text: "Db   Id",
+          value: "_id",
+          sortable: false,
+        },
+        {
+          text: "Avatar",
+          value: "avatar",
+          sortable: false,
+        },
+        {
+          text: "Nome",
           value: "name",
           sortable: false,
         },
         {
-          text: "Surname",
+          text: "Cognome",
           value: "surname",
+          sortable: false,
+        },
+        {
+          text: "Codice fiscale",
+          value: "fiscalCode",
+          sortable: false,
+        },
+        {
+          text: "Email",
+          value: "email",
           sortable: false,
         },
         {

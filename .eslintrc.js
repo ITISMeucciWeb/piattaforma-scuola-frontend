@@ -14,7 +14,8 @@ module.exports = {
   rules: {
     "no-unused-vars": 0,
     "vue/multi-word-component-names": 0,
-    "vue/no-mutating-props": 0
+    "vue/no-mutating-props": 0,
+    "vue/valid-v-slot": 0
   },
   overrides: [
     {

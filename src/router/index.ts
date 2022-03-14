@@ -59,14 +59,19 @@ const routes: Array<RouteConfig> = [
         component: () => import("../views/board/Dashboard.vue")
       },
       {
-        path: "students",
-        name: "StudentsList",
-        component: () => import("../views/board/StudentsList.vue")
+        path: "users",
+        name: "UsersList",
+        component: () => import("../views/board/UsersList.vue")
       },
       {
         path: "models",
         name: "Models",
         component: () => import("../views/board/Models.vue")
+      },
+      {
+        path: "models/new",
+        name: "NewModel",
+        component: () => import("../views/board/models/new.vue")
       },
       {
         path: "import",
