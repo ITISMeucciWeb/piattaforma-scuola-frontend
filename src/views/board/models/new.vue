@@ -10,7 +10,7 @@
             <v-icon class="mt-8" size="120" @click="openFileHandler">mdi-cloud-upload</v-icon>
           </v-card-actions>
         </v-card>
-        <viewer ref="viewer" v-else style="height: 1080px; width: 100%" :pdf="file"></viewer>
+        <viewer ref="viewer" v-else style="width: 100%" :pdf="file"></viewer>
       </div>
       <v-card-actions>
         <v-spacer/>
