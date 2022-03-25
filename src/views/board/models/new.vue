@@ -24,7 +24,7 @@
 
 <script>
 import {fabric} from "fabric";
-import {Viewer} from "@dreaming-codes/vue-dreaming-pdf"
+import {Viewer} from "vue-dreaming-pdf"
 
 function getFileFromEvent(event) {
   if (event.type === 'drop') {
