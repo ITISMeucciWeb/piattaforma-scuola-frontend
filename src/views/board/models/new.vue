@@ -10,12 +10,12 @@
             <v-icon class="mt-8" size="120" @click="openFileHandler">mdi-cloud-upload</v-icon>
           </v-card-actions>
         </v-card>
-        <viewer ref="viewer" v-else style="width: 100%" :pdf="file"></viewer>
+        <editor ref="viewer" v-else style="width: 100%" :pdf="file"></editor>
       </div>
       <v-card-actions>
         <v-spacer/>
-        <v-btn flat color="error" @click="$router.push('/board/models')">Annulla</v-btn>
-        <v-btn flat color="accent" @click="$router.push('/board/models')">Salva</v-btn>
+        <v-btn text color="error" @click="$router.push('/board/models')">Annulla</v-btn>
+        <v-btn text color="accent" @click="$router.push('/board/models')">Salva</v-btn>
       </v-card-actions>
     </v-card>
 
@@ -24,7 +24,7 @@
 
 <script>
 import {fabric} from "fabric";
-import {Viewer} from "vue-dreaming-pdf"
+import Editor from "./editor";
 
 function getFileFromEvent(event) {
   if (event.type === 'drop') {
@@ -37,7 +37,7 @@ function getFileFromEvent(event) {
 export default {
   name: "new",
   components: {
-    Viewer
+    Editor
   },
 
   methods: {
