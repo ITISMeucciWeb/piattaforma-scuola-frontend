@@ -3411,10 +3411,10 @@ vue-demi@*:
   resolved "https://registry.yarnpkg.com/vue-demi/-/vue-demi-0.12.4.tgz#420dd17628f95f1bbce1102ad3c51074713a8049"
   integrity sha512-ztPDkFt0TSUdoq1ZI6oD730vgztBkiByhUW7L1cOTebiSBqSYfSQgnhYakYigBkyAybqCTH7h44yZuDJf2xILQ==
 
-vue-dreaming-pdf@^0.1.5:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/vue-dreaming-pdf/-/vue-dreaming-pdf-0.1.5.tgz#e5a525f3a8d75a0b43e24741e09d6b3022f39a3d"
-  integrity sha512-zsYWNxtOk623RQSOiqoD63k3DF5Q9eKHVbH/0+XwG9qp485GrZ1/G+Oqz8fNSm11Nuqc54/YLszo1or/etXXGw==
+vue-dreaming-pdf@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/vue-dreaming-pdf/-/vue-dreaming-pdf-0.1.7.tgz#14942f1445fd09be3f28edcc7bf114dedcb9cc07"
+  integrity sha512-rDOn3M/GpWEy/pCvEcnTllf0rgm5MkPs9UoRjaaq7ABFIzOfdunaIKekaJluk9N+yssfRyCF4UWzuLtWID8xHQ==
   dependencies:
     fabric "^5.2.1"
     pdf-lib "^1.17.1"
