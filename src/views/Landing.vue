@@ -70,11 +70,11 @@ export default Vue.extend({
       })
     },
     afterEnterBottomAnim(el) {
-      //overflow fix
       gsap.to(el, {
         duration: .4,
         yPercent: 0,
         onComplete: () => {
+          //overflow fix
           document.getElementsByTagName("body")[0].style.overflowY = "auto";
         },
         ease: Power4.easeIn,
