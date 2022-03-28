@@ -71,7 +71,7 @@ const routes: Array<RouteConfig> = [
       {
         path: "models/new",
         name: "NewModel",
-        component: () => import("../views/board/models/new.vue")
+        component: () => import("../views/board/models/NewModel.vue")
       },
       {
         path: "import",
