@@ -14,7 +14,7 @@
       <v-col sm="4">
         <v-responsive :max-height="$refs.viewerApp ? $refs.viewerApp.clientHeight - $refs.newFieldBtn.$el.offsetHeight: 0" style="overflow: auto">
           <v-card shaped v-for="(field, key) in fields" v-bind:key="key" color="other" class="mb-2">
-            <v-card-title><v-text-field ref="fieldTitle" :value="field.id"  @input="updateTitle(field, $event)"/></v-card-title>
+            <v-card-title><v-text-field ref="fieldTitle" :value="field.id"  @input="updateTitle(field.id, $event)"/></v-card-title>
             <v-card-subtitle>{{field.id}}</v-card-subtitle>
             <v-card-text>
               <v-checkbox v-model="field.availableToRepresentative" class="mx-2" label="Disponibile solo al rappresentante"/>
@@ -22,7 +22,7 @@
             </v-card-text>
             <v-card-actions class="flex-column mx-3 pb-5" style="gap: 10px">
               <v-btn color="accent" @click="moveField(key)" class="mx-0" width="100%"><v-icon>mdi-chess-pawn</v-icon><v-spacer/>MUOVI IN QUESTA PAGINA<v-spacer/></v-btn>
-              <v-btn @click="takeMeToId(field)" class="mx-0" width="100%"><v-icon>mdi-map-marker</v-icon><v-spacer/>PORTAMI ALLA PAGINA<v-spacer/></v-btn>
+              <v-btn @click="takeMeToId(field.id)" class="mx-0" width="100%"><v-icon>mdi-map-marker</v-icon><v-spacer/>PORTAMI ALLA PAGINA<v-spacer/></v-btn>
               <v-btn @click="removeField(key)" class="mx-0" width="100%" color="error"><v-icon>mdi-trash-can</v-icon><v-spacer/>RIMUOVI<v-spacer/></v-btn>
             </v-card-actions>
           </v-card>
