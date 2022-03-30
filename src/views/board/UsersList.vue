@@ -8,7 +8,7 @@
                     }"
                     :items="getUsersByName.users" :items-per-page="15" :server-items-length="getUsersByName.count">
         <template v-slot:top>
-          <v-text-field @keydown="prepareForSearch" v-model="nameSearch" append-icon="mdi-magnify"></v-text-field>
+          <v-text-field @keydown="prepareForSearch" v-model="nameSearch" class="mx-4" append-icon="mdi-magnify"></v-text-field>
         </template>
         <template v-slot:[`item.hasDisorders`]="{ item }">
           <v-icon>
