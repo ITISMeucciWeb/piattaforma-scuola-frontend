@@ -12,7 +12,7 @@
         </v-container>
       </v-col>
       <v-col sm="4">
-        <v-responsive :max-height="$refs.viewerApp ? $refs.viewerApp.clientHeight - $refs.newFieldBtn.$el.offsetHeight: 0" style="overflow: auto">
+        <v-responsive class="noScrollbarBG" :max-height="$refs.viewerApp ? $refs.viewerApp.clientHeight - $refs.newFieldBtn.$el.offsetHeight: 0" style="overflow: auto">
           <v-card shaped v-for="(field, key) in fields" v-bind:key="key" color="other" class="mb-2">
             <v-card-title><v-text-field ref="fieldTitle" :value="field.id"  @input="updateTitle(field.id, $event)"/></v-card-title>
             <v-card-subtitle>{{field.id}}</v-card-subtitle>

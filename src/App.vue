@@ -37,6 +37,10 @@ html {
   background: var(--v-other-base);
 }
 
+.noScrollbarBG::-webkit-scrollbar-track{
+  background: transparent !important;
+}
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: var(--v-accent2-base);
