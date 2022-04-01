@@ -120,12 +120,8 @@ export default {
     };
   },
   methods: {
-    logData(data){
-      console.log(data);
-    },
     prepareForSearch() {
       this.page = 1;
-      console.log("sdsa", this.page);
     },
     changeOptions(options: any){
       this.from = (options.page - 1) * options.itemsPerPage;
