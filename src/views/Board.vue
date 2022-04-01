@@ -83,7 +83,7 @@
             </v-navigation-drawer>
           </v-card>
         </v-col>
-        <v-col class="fill-height">
+        <v-col class="fill-height" cols="10">
           <v-sheet class="fill-height flex mx-5">
             <v-toolbar class="mb-5" color="other" elevation="12" height="52">
               <v-toolbar-title>
