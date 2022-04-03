@@ -17,7 +17,7 @@
             <v-card-title><v-text-field ref="fieldTitle" :value="field.id"  @input="updateTitle(field.id, $event)"/></v-card-title>
             <v-card-subtitle>{{field.id}}</v-card-subtitle>
             <v-card-text>
-              <v-checkbox v-model="field.availableToRepresentative" class="mx-2" label="Disponibile solo al rappresentante"/>
+              <v-checkbox v-model="field.availableToRepresentative" class="mx-2" label="Disponibile solo al cordinatore"/>
               <v-select :value="fieldTypeNames[$refs.viewer.getFieldById(field.id)[1].type]" :items="fieldTypeNames"/>
             </v-card-text>
             <v-card-actions class="flex-column mx-3 pb-5" style="gap: 10px">

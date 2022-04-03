@@ -13,7 +13,6 @@ const routes: Array<RouteConfig> = [
   {
     path: "/",
     redirect: ()=>{
-      //TODO: check if user is logged in
       return '/landing'
     }
   },

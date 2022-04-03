@@ -5,7 +5,7 @@
     <v-app-bar class="transparent" elevation="0">
       <v-spacer/>
       <v-toolbar-items>
-        <v-btn v-for="item in items" v-bind:key="item.text" :to="item.to" plain>
+        <v-btn v-for="(item, index) in items" v-bind:key="index" :to="item.to" plain>
           <v-icon>{{ item.icon }}</v-icon>
           {{ item.text }}
         </v-btn>
