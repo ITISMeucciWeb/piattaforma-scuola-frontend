@@ -1,7 +1,7 @@
 <template>
-  <v-container fluid class="fill-height pa-0">
-    <v-card width="100%" elevation="12" color="other">
-      <v-data-table :headers="disorderHeaders" ref="dataTable" class="other" :items="getDisordersList">
+  <v-container class="fill-height pa-0" fluid>
+    <v-card color="other" elevation="12" width="100%">
+      <v-data-table ref="dataTable" :headers="disorderHeaders" :items="getDisordersList" class="other">
         <template v-slot:top>
           <v-toolbar flat>
             <v-toolbar-title>Disorders</v-toolbar-title>
@@ -12,9 +12,9 @@
             ></v-divider>
             <v-spacer></v-spacer>
             <v-btn
+                class="mb-2"
                 color="primary"
                 dark
-                class="mb-2"
                 to="/board/models/new"
             >
               Nuovo
@@ -32,12 +32,15 @@ import gql from "graphql-tag";
 export default {
   name: "Modelli-admin",
   apollo: {
-    getDisordersList: gql`query getDisordersList{getDisordersList{_id, name, description}}`,
+    getDisordersList: {
+      query: gql`query getDisordersList{getDisordersList{_id, name, description}}`,
+      fetchPolicy: "no-cache"
+    },
   },
   data: () => ({
     disorderHeaders: [
-      { text: "Nome", value: "name" },
-      { text: "Descrizione", value: "description" },
+      {text: "Nome", value: "name"},
+      {text: "Descrizione", value: "description"},
     ],
     dialog: false,
     dialogDelete: false,
@@ -48,11 +51,11 @@ export default {
         sortable: false,
         value: 'name',
       },
-      { text: 'Calories', value: 'calories' },
-      { text: 'Fat (g)', value: 'fat' },
-      { text: 'Carbs (g)', value: 'carbs' },
-      { text: 'Protein (g)', value: 'protein' },
-      { text: 'Actions', value: 'actions', sortable: false },
+      {text: 'Calories', value: 'calories'},
+      {text: 'Fat (g)', value: 'fat'},
+      {text: 'Carbs (g)', value: 'carbs'},
+      {text: 'Protein (g)', value: 'protein'},
+      {text: 'Actions', value: 'actions', sortable: false},
     ],
     desserts: [],
     editedIndex: -1,

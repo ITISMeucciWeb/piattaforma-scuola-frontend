@@ -15,8 +15,8 @@
       </div>
       <v-card-actions>
         <v-spacer/>
-        <v-btn color="error" text @click="$router.push('/board/models')">Annulla</v-btn>
-        <v-btn color="accent" text @click="saveModel">Salva</v-btn>
+        <v-btn :disabled="loading" color="error" text @click="$router.push('/board/models')">Annulla</v-btn>
+        <v-btn :loading="loading" color="accent" text @click="saveModel">Salva</v-btn>
       </v-card-actions>
     </v-card>
 
@@ -47,6 +47,8 @@ export default class NewModel extends Vue {
   name = "";
   description = "";
 
+  loading = false;
+
   $refs!: {
     fileHandler: HTMLInputElement,
     editor: Editor
@@ -61,9 +63,8 @@ export default class NewModel extends Vue {
   }
 
   async saveModel() {
-    console.log("save model")
-
-    this.$apollo.mutate({
+    this.loading = true;
+    await this.$apollo.mutate({
       mutation: gql`mutation newDisorder($modelDocument: Disorder!, $pdfFile: Upload!){newDisorder(disorderDocument: $modelDocument, pdf: $pdfFile)}`,
       variables: {
         modelDocument: {
@@ -76,12 +77,6 @@ export default class NewModel extends Vue {
       },
     })
 
-    console.log(new Blob([await this.$refs.editor.getPDF()], {
-      type: "application/pdf"
-    }))
-
-    console.log(await this.$refs.editor.getPDF())
-    console.log(this.name, this.description)
     this.$router.push('/board/models')
   }
 }
