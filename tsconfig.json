@@ -18,7 +18,8 @@
       "@types/node",
       "vue-sweetalert2",
       "vue-class-component",
-      "vue-dreaming-pdf"
+      "vue-dreaming-pdf",
+      "@types/apollo-upload-client"
     ],
     "paths": {
       "@/*": [

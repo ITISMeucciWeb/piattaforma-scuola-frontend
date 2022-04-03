@@ -27,6 +27,7 @@
 import Editor from "./Editor.vue";
 import Component from "vue-class-component";
 import Vue from "vue";
+import gql from "graphql-tag";
 
 function getFileFromEvent(event) {
   if (event.type === 'drop') {
@@ -61,6 +62,24 @@ export default class NewModel extends Vue {
 
   async saveModel() {
     console.log("save model")
+
+    this.$apollo.mutate({
+      mutation: gql`mutation newDisorder($modelDocument: Disorder!, $pdfFile: Upload!){newDisorder(disorderDocument: $modelDocument, pdf: $pdfFile)}`,
+      variables: {
+        modelDocument: {
+          name: this.name,
+          description: this.description
+        },
+        pdfFile: new Blob([await this.$refs.editor.getPDF()], {
+          type: "application/pdf"
+        })
+      },
+    })
+
+    console.log(new Blob([await this.$refs.editor.getPDF()], {
+      type: "application/pdf"
+    }))
+
     console.log(await this.$refs.editor.getPDF())
     console.log(this.name, this.description)
     this.$router.push('/board/models')

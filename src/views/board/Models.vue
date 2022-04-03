@@ -70,20 +70,7 @@ export default {
       carbs: 0,
       protein: 0,
     },
-  }),
-  methods: {
-    newDisorder() {
-      this.$apollo.mutate({
-        mutation: gql`mutation newDisorder($modelDocument: Disorder!){newDisorder(disorderDocument: $modelDocument)}`,
-        variables: {
-          modelDocument: {
-            name: "as",
-            description: "as",
-          },
-        },
-      })
-    },
-  },
+  })
 }
 </script>
 
