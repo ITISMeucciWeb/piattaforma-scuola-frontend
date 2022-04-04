@@ -67,7 +67,7 @@ export default {
       page: 1,
       tableHeaders: [
         {
-          text: "Db   Id",
+          text: "Db Id",
           value: "_id",
           sortable: false,
         },

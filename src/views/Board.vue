@@ -165,6 +165,11 @@ export default {
           to: '/board/dashboard'
         },
         {
+          text: 'Classes',
+          icon: 'mdi-google-classroom',
+          to: '/board/classes'
+        },
+        {
           text: 'Admin',
           icon: 'mdi-account-key',
           items: [
