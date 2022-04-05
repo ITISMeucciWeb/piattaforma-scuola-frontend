@@ -1,9 +1,9 @@
 <template>
   <v-container class="fill-height pa-0" fluid>
     <v-card color="other" elevation="12" width="100%">
-      <v-data-table :headers="tableHeaders" :items="getClasses.flat().students" class="other">
+      <v-data-table :search="searchFor" :headers="tableHeaders" :items="getMyStudents" class="other">
         <template v-slot:top>
-          <v-text-field append-icon="mdi-magnify" class="mx-4"></v-text-field>
+          <v-text-field v-model="searchFor" append-icon="mdi-magnify" class="mx-4"></v-text-field>
         </template>
       </v-data-table>
     </v-card>
@@ -16,31 +16,42 @@ import gql from "graphql-tag";
 export default {
   name: "Classes",
   apollo: {
-    getClasses: {
+    getMyStudents: {
       query: gql`
-        query getClasses {
-          getClasses {
+        query getMyStudents {
+          getMyStudents {
             class,
             division,
-            students {
-                name,
-                surname
-            }
+            name,
+            surname
           }
 
         }
         `
     }
   },
-  mounted() {
-    console.log(this.getClasses.flat());
-  },
   data(){
     return {
+      searchFor: "",
       tableHeaders: [
         {
           text: "Name",
           value: "name",
+          sortable: true
+        },
+        {
+          text: "Surname",
+          value: "surname",
+          sortable: true
+        },
+        {
+          text: "Class",
+          value: "class",
+          sortable: true
+        },
+        {
+          text: "Division",
+          value: "division",
           sortable: true
         }
       ]
