@@ -11,3 +11,15 @@ export const useUserStore = defineStore( {
     }
   }
 });
+
+export const useMainStore = defineStore({
+  id: "main",
+  state: () => ({
+    debug: false
+  }),
+  actions: {
+    toggleDebug() {
+      this.debug = !this.debug;
+    }
+  }
+})

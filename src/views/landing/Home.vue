@@ -31,10 +31,8 @@ import {parseJWT} from "@/utils";
 export default {
   name: "Home-Landing",
   setup() {
-    const userStore = useUserStore();
-
     return {
-      userStore
+      userStore: useUserStore()
     }
   },
   methods: {

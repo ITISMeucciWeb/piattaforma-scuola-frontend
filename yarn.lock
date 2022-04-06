@@ -3552,6 +3552,11 @@ vue-eslint-parser@^8.0.0, vue-eslint-parser@^8.0.1:
     lodash "^4.17.21"
     semver "^7.3.5"
 
+vue-matrix-digit-rain@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/vue-matrix-digit-rain/-/vue-matrix-digit-rain-1.0.1.tgz#c9a0211cf23d2be51e4b7fc00e10306fa678e8d5"
+  integrity sha512-TDeoSXEaBMXZOZxXAbgPUzUX8SDaofakBs4X3XBemVxFuKoaUUsxrozZIaFWIiEJkV+BJxWFOoqLjCmnZFdcoA==
+
 vue-page-transition@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/vue-page-transition/-/vue-page-transition-0.2.2.tgz#a7c607ccc8dc67e7c05e66a5a9d54bd27d252d56"

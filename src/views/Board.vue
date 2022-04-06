@@ -1,6 +1,7 @@
 <template>
   <v-app>
-    <div id="background" class="background"/>
+    <vue-matrix-raindrop :speed="10" :canvasWidth="$refs.background.clientWidth" :canvas-height="$refs.background.clientHeight" class="background" v-if="mainStore.debug"></vue-matrix-raindrop>
+    <div v-else ref="background" id="background" class="background"/>
     <div id="background-overlay" class="background"/>
     <v-container fluid>
       <v-row class="mt-2" no-gutters>
@@ -65,7 +66,7 @@
               <v-divider/>
               <v-list-item>
                 <v-list-item-avatar>
-                  <v-img :src="userStore.user.avatar" class="rounded-circle" height="40" width="40"></v-img>
+                  <v-img @click="avatarClicked" :src="userStore.user.avatar" class="rounded-circle" height="40" width="40"></v-img>
                 </v-list-item-avatar>
                 <v-list-item-content>
                   <v-list-item-title>
@@ -123,21 +124,40 @@
 </style>
 
 <script>
-import {useUserStore} from "@/store";
+import {useMainStore, useUserStore} from "@/store";
+import VueMatrixRaindrop from 'vue-matrix-digit-rain'
 
 export default {
   name: "Board-Layout",
+  components: {
+    VueMatrixRaindrop
+  },
   setup() {
-    const userStore = useUserStore();
-
     return {
-      userStore
+      userStore: useUserStore(),
+      mainStore: useMainStore()
     }
   },
   methods: {
     logout() {
       this.userStore.logout();
       this.$router.push('/')
+    },
+    avatarClicked(){
+      this.avatarClickedTimes++;
+
+      //Kill the actual timeout
+      clearTimeout(this.clearAvatarClickedTimesTimeout)
+      //Set avatarClickedTimes to 0 if not clicked again in 500ms
+      this.clearAvatarClickedTimesTimeout = setTimeout(()=>{
+        this.avatarClickedTimes = 0;
+        this.clearAvatarClickedTimesTimeout = null;
+      }, 1000)
+
+      if(this.avatarClickedTimes>10){
+        this.avatarClickedTimes = 0;
+        this.mainStore.toggleDebug();
+      }
     }
   },
   computed: {
@@ -157,6 +177,8 @@ export default {
   },
   data: () => {
     return {
+      avatarClickedTimes: 0,
+      clearAvatarClickedTimesTimeout: null,
       schoolName: import.meta.env.VUE_APP_SCHOOL_NAME,
       items: [
         {
