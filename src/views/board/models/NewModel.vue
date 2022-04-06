@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import Editor from "./Editor.vue";
+import Editor from "../../../components/PDP/Editor.vue";
 import Component from "vue-class-component";
 import Vue from "vue";
 import gql from "graphql-tag";
