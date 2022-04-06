@@ -165,9 +165,9 @@ export default {
           to: '/board/dashboard'
         },
         {
-          text: 'Classes',
+          text: 'Students',
           icon: 'mdi-google-classroom',
-          to: '/board/classes'
+          to: '/board/students'
         },
         {
           text: 'Admin',

@@ -19,7 +19,8 @@
       "vue-sweetalert2",
       "vue-class-component",
       "vue-dreaming-pdf",
-      "@types/apollo-upload-client"
+      "@types/apollo-upload-client",
+      "apollo-link-context"
     ],
     "paths": {
       "@/*": [
