@@ -10,6 +10,14 @@
             {{ item.hasDisorders ? "mdi-checkbox-marked" : "mdi-checkbox-blank-outline" }}
           </v-icon>
         </template>
+        <template v-slot:item.actions="{ item }">
+          <v-icon
+              class="mr-2"
+              @click="compileItem(item)"
+          >
+            mdi-card-account-details
+          </v-icon>
+        </template>
       </v-data-table>
     </v-card>
   </v-container>
@@ -70,6 +78,11 @@ export default {
           text: "Disorders",
           value: "hasDisorders",
           sortable: true
+        },
+        {
+          text: "Actions",
+          value: "actions",
+          sortable: false
         }
       ]
     }
