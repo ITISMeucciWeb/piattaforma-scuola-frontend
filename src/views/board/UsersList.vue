@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="fill-height pa-0">
     <v-card width="100%" elevation="12" color="other">
-      <v-data-table ref="dataTable" class="other" virt :headers="tableHeaders" v-on:update:options="changeOptions"
+      <v-data-table :loading="loading" ref="dataTable" class="other" virt :headers="tableHeaders" v-on:update:options="changeOptions"
                     :page.sync="page"
                     :footer-props="{
                       'items-per-page-options': [5, 10, 15, 20]
@@ -50,6 +50,9 @@ export default {
             }
           }
         }`,
+      watchLoading(loading) {
+        this.loading = loading;
+      },
       variables() {
         return {
           from: this.from,
@@ -65,6 +68,7 @@ export default {
       limit: 15,
       from: 0,
       page: 1,
+      loading: false,
       tableHeaders: [
         {
           text: "Db Id",
