@@ -9,17 +9,17 @@
 <script lang="ts">
 import Vue from "vue";
 import {useCookies} from "@vueuse/integrations/useCookies";
+import Component from 'vue-class-component'
 
-export default Vue.extend({
-  name: "Piattaforma-"+ "import.meta.env.VUE_APP_SCHOOL_NAME".toLowerCase().replace(" ", "-"),
+@Component({})
+export default class App extends Vue {
   setup() {
     const cookies = useCookies()
     return {
       cookies,
     }
-  },
-  components: {},
-});
+  }
+}
 </script>
 
 <style lang="scss">

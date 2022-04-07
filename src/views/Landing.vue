@@ -44,64 +44,60 @@ import Vue from "vue";
 import gsap from "gsap";
 import {Power4} from "gsap/gsap-core";
 
-export default Vue.extend({
-  name: "Landing-Home",
-  methods: {
-    leaveBottomAnim(el, done) {
-      //overflow fix
-      document.getElementsByTagName("body")[0].style.overflowY = "hidden";
-
-      gsap.to(el, {
-        ease: Power4.easeOut,
-        scale: 0,
-        yPercent: 50,
-        duration: .3,
-        onComplete: done,
-      })
-
+export default class Landing extends Vue {
+  items: [
+    {
+      text: 'Home',
+      icon: 'mdi-home',
+      to: '/landing/home'
     },
-    enterBottomAnim(el, done) {
-      gsap.to(el, {
-        duration: .3,
-        yPercent: 50,
-        onComplete: done,
-        ease: Power4.easeIn,
-        scale: 0,
-      })
+    {
+      text: 'Autori',
+      icon: 'mdi-account-group',
+      to: '/landing/authors'
     },
-    afterEnterBottomAnim(el) {
-      gsap.to(el, {
-        duration: .4,
-        yPercent: 0,
-        onComplete: () => {
-          //overflow fix
-          document.getElementsByTagName("body")[0].style.overflowY = "auto";
-        },
-        ease: Power4.easeIn,
-        scale: 1
-      })
+    {
+      text: 'Privacy policy',
+      icon: 'mdi-cookie',
+      to: '/landing/privacy'
     }
-  },
-  data: () => {
-    return {
-      items: [
-        {
-          text: 'Home',
-          icon: 'mdi-home',
-          to: '/landing/home'
-        },
-        {
-          text: 'Autori',
-          icon: 'mdi-account-group',
-          to: '/landing/authors'
-        },
-        {
-          text: 'Privacy policy',
-          icon: 'mdi-cookie',
-          to: '/landing/privacy'
-        }
-      ]
-    }
+  ]
+
+  leaveBottomAnim(el, done) {
+    //overflow fix
+    document.getElementsByTagName("body")[0].style.overflowY = "hidden";
+
+    gsap.to(el, {
+      ease: Power4.easeOut,
+      scale: 0,
+      yPercent: 50,
+      duration: .3,
+      onComplete: done,
+    })
+
   }
-});
+
+  enterBottomAnim(el, done) {
+    gsap.to(el, {
+      duration: .3,
+      yPercent: 50,
+      onComplete: done,
+      ease: Power4.easeIn,
+      scale: 0,
+    })
+  }
+
+  afterEnterBottomAnim(el) {
+    gsap.to(el, {
+      duration: .4,
+      yPercent: 0,
+      onComplete: () => {
+        //overflow fix
+        document.getElementsByTagName("body")[0].style.overflowY = "auto";
+      },
+      ease: Power4.easeIn,
+      scale: 1
+    })
+  }
+}
 </script>
