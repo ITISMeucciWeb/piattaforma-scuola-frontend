@@ -38,7 +38,7 @@ export default {
   methods: {
     async login() {
       this.userStore.$state.authState = "Logging";
-      const authWindow = window.open("https://api.localhost/google", "gAuth", "width=568,height=560");
+      const authWindow = window.open("http://localhost:3000/google", "gAuth", "width=568,height=560");
       await new Promise((resolve) => {
         const interval = setInterval(() => {
           if (authWindow.closed) {

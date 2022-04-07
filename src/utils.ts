@@ -14,7 +14,7 @@ export async function updateUserStatus(){
     const token = localStorage.getItem('token');
     if (token) {
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-        await axios.get("https://api.localhost/google/isAuthenticated", {
+        await axios.get("http://localhost:3000/google/isAuthenticated", {
             validateStatus(status) {
                 const userStore = useUserStore();
 

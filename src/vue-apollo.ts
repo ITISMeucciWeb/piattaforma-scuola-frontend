@@ -10,7 +10,7 @@ import {createUploadLink} from "apollo-upload-client";
 // Create the subscription websocket link
 //TODO: Implement authentication
 const wsLink = new WebSocketLink({
-    uri: 'wss://api.localhost/graphql',
+    uri: import.meta.env.VUE_API_WS_URL + '/graphql',
     options: {
         reconnect: true,
     },
@@ -25,7 +25,7 @@ const link = split(
     },
     wsLink,
     // @ts-ignore
-    createUploadLink({uri: 'https://api.localhost/graphql', headers: {
+    createUploadLink({uri: import.meta.env.VUE_API_URL + '/graphql', headers: {
         "Authorization": `Bearer ${localStorage.getItem("token")}`
         }})
 )

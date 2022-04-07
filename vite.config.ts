@@ -26,6 +26,8 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
         plugins: [
             EnvironmentPlugin({
                 "VUE_APP_SCHOOL_NAME": "ITIS Meucci",
+                "VUE_API_URL": "http://localhost:3000",
+                "VUE_API_WS_URL": "ws://localhost:3000",
             }, { defineOn: 'import.meta.env' }),
             // Vue2
             // https://github.com/underfin/vite-plugin-vue2
@@ -52,12 +54,11 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
             viteCompression(),
         ],
         server:{
-            port: 3001,
             open: true,
+            port: 3001,
             hmr: {
-                port: 443
+                port: 3001,
             }
         }
-
     };
 });

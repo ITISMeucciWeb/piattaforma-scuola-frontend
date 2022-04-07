@@ -65,6 +65,7 @@ export default {
   data() {
     return {
       nameSearch: "",
+      getUsersByName: [],
       limit: 15,
       from: 0,
       page: 1,
