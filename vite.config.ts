@@ -54,7 +54,7 @@ export default defineConfig(async ({ command, mode }): Promise<UserConfig> => {
             viteCompression(),
         ],
         server:{
-            open: true,
+            open: false,
             port: 3001,
             hmr: {
                 port: 3001,
