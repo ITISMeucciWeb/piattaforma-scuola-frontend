@@ -43,9 +43,11 @@
 import Vue from "vue";
 import gsap from "gsap";
 import {Power4} from "gsap/gsap-core";
+import Component from "vue-class-component";
 
+@Component({})
 export default class Landing extends Vue {
-  items: [
+  items = [
     {
       text: 'Home',
       icon: 'mdi-home',

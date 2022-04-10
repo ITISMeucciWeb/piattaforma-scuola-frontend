@@ -1,7 +1,9 @@
 <template>
   <v-app>
-    <vue-matrix-raindrop :speed="10" :canvasWidth="$refs.background.clientWidth" :canvas-height="$refs.background.clientHeight" class="background" v-if="mainStore.debug"></vue-matrix-raindrop>
-    <div v-else ref="background" id="background" class="background"/>
+    <vue-matrix-raindrop v-if="mainStore.debug" :canvas-height="$refs.background.clientHeight"
+                         :canvasWidth="$refs.background.clientWidth" :speed="10"
+                         class="background"></vue-matrix-raindrop>
+    <div v-else id="background" ref="background" class="background"/>
     <div id="background-overlay" class="background"/>
     <v-container fluid>
       <v-row class="mt-2" no-gutters>
@@ -66,7 +68,8 @@
               <v-divider/>
               <v-list-item>
                 <v-list-item-avatar>
-                  <v-img @click="avatarClicked" :src="userStore.user.avatar" class="rounded-circle" height="40" width="40"></v-img>
+                  <v-img :src="userStore.user.avatar" class="rounded-circle" height="40" width="40"
+                         @click="avatarClicked"></v-img>
                 </v-list-item-avatar>
                 <v-list-item-content>
                   <v-list-item-title>
@@ -123,42 +126,16 @@
 }
 </style>
 
-<script>
+<script lang="ts">
 import {useMainStore, useUserStore} from "@/store";
+// @ts-ignore
 import VueMatrixRaindrop from 'vue-matrix-digit-rain'
+import Vue from "vue";
+import Component from "vue-class-component";
 
-export default {
-  name: "Board-Layout",
+@Component({
   components: {
     VueMatrixRaindrop
-  },
-  setup() {
-    return {
-      userStore: useUserStore(),
-      mainStore: useMainStore()
-    }
-  },
-  methods: {
-    logout() {
-      this.userStore.logout();
-      this.$router.push('/')
-    },
-    avatarClicked(){
-      this.avatarClickedTimes++;
-
-      //Kill the actual timeout
-      clearTimeout(this.clearAvatarClickedTimesTimeout)
-      //Set avatarClickedTimes to 0 if not clicked again in 1000ms
-      this.clearAvatarClickedTimesTimeout = setTimeout(()=>{
-        this.avatarClickedTimes = 0;
-        this.clearAvatarClickedTimesTimeout = null;
-      }, 1000)
-
-      if(this.avatarClickedTimes>10){
-        this.avatarClickedTimes = 0;
-        this.mainStore.toggleDebug();
-      }
-    }
   },
   computed: {
     currentRouteFromSelector() {
@@ -174,45 +151,63 @@ export default {
         return this.$route.path.startsWith(item.to)
       });
     }
-  },
-  data: () => {
-    return {
-      avatarClickedTimes: 0,
-      clearAvatarClickedTimesTimeout: null,
-      schoolName: import.meta.env.VUE_APP_SCHOOL_NAME,
+  }
+})
+export default class Layout extends Vue {
+  avatarClickedTimes = 0;
+  clearAvatarClickedTimesTimeout = null;
+  schoolName = import.meta.env.VUE_APP_SCHOOL_NAME;
+  items = [
+    {
+      text: 'Students',
+      icon: 'mdi-google-classroom',
+      to: '/board/students'
+    },
+    {
+      text: 'Admin',
+      icon: 'mdi-account-key',
       items: [
         {
-          text: 'Dashboard',
-          icon: 'mdi-view-dashboard',
-          to: '/board/dashboard'
+          text: "Modelli",
+          icon: 'mdi-file-document',
+          to: '/board/models'
         },
         {
-          text: 'Students',
-          icon: 'mdi-google-classroom',
-          to: '/board/students'
+          text: "Utenti",
+          icon: 'mdi-account-multiple',
+          to: '/board/users'
         },
         {
-          text: 'Admin',
-          icon: 'mdi-account-key',
-          items: [
-            {
-              text: "Modelli",
-              icon: 'mdi-file-document',
-              to: '/board/models'
-            },
-            {
-              text: "Utenti",
-              icon: 'mdi-account-multiple',
-              to: '/board/users'
-            },
-            {
-              text: "Import",
-              icon: 'mdi-file-import',
-              to: '/board/import'
-            }
-          ]
+          text: "Import",
+          icon: 'mdi-file-import',
+          to: '/board/import'
         }
       ]
+    }
+  ];
+
+  userStore = useUserStore();
+  mainStore = useMainStore();
+
+  logout() {
+    this.userStore.logout();
+    this.$router.push('/')
+  }
+
+  avatarClicked() {
+    this.avatarClickedTimes++;
+
+    //Kill the actual timeout
+    clearTimeout(this.clearAvatarClickedTimesTimeout)
+    //Set avatarClickedTimes to 0 if not clicked again in 1000ms
+    this.clearAvatarClickedTimesTimeout = setTimeout(() => {
+      this.avatarClickedTimes = 0;
+      this.clearAvatarClickedTimesTimeout = null;
+    }, 1000)
+
+    if (this.avatarClickedTimes > 5) {
+      this.avatarClickedTimes = 0;
+      this.mainStore.toggleDebug();
     }
   }
 }
