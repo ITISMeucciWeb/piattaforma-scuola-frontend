@@ -9,6 +9,7 @@ export const useUserStore = defineStore( {
       localStorage.clear();
       stopClient();
       this.authState = "NotLogged";
+      useMainStore().debug = false;
       this.user = null;
     }
   }
