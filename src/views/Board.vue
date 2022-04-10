@@ -159,6 +159,11 @@ export default class Layout extends Vue {
   schoolName = import.meta.env.VUE_APP_SCHOOL_NAME;
   items = [
     {
+      text: 'Dashboard',
+      icon: 'mdi-view-dashboard',
+      to: '/board/dashboard'
+    },
+    {
       text: 'Students',
       icon: 'mdi-google-classroom',
       to: '/board/students'
