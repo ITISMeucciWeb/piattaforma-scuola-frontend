@@ -16,7 +16,7 @@
           </v-icon>
         </template>
         <template v-slot:[`item.avatar`]="{ item }">
-          <v-img contain :height="50" :width="50" class="rounded-circle" v-if="item.avatar" :src="item.avatar"></v-img>
+          <v-img contain :height="35" :width="35" class="rounded-circle" v-if="item.avatar" :src="item.avatar"></v-img>
         </template>
       </v-data-table>
     </v-card>
@@ -77,7 +77,6 @@ export default {
           sortable: false,
         },
         {
-          text: "Avatar",
           value: "avatar",
           sortable: false,
         },

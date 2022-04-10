@@ -24,18 +24,10 @@
 </template>
 
 <script lang="ts">
-import Editor from "../../../components/PDP/Editor.vue";
+import Editor from "@/components/PDP/Editor.vue";
 import Component from "vue-class-component";
 import Vue from "vue";
 import gql from "graphql-tag";
-
-function getFileFromEvent(event) {
-  if (event.type === 'drop') {
-    return event.dataTransfer.files[0];
-  } else {
-    return event.target.files[0];
-  }
-}
 
 @Component({
   components: {

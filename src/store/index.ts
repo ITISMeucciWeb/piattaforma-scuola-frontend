@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import {stopClient} from "@/vue-apollo";
 
 export const useUserStore = defineStore( {
   id: "user",
@@ -6,6 +7,7 @@ export const useUserStore = defineStore( {
   actions:{
     logout(){
       localStorage.clear();
+      stopClient();
       this.authState = "NotLogged";
       this.user = null;
     }

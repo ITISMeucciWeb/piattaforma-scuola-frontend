@@ -11,12 +11,17 @@
           </v-icon>
         </template>
         <template v-slot:item.actions="{ item }">
-          <v-icon
-              class="mr-2"
-              @click="compileItem(item)"
-          >
-            mdi-card-account-details
-          </v-icon>
+          <v-dialog v-model="item.modelEditActive" ref="dialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+            <template v-slot:activator="{ on , attrs}">
+              <v-btn plain v-on="on" class="mr-2" v-bind="attrs">
+                <v-icon>
+                  mdi-card-account-details
+                </v-icon>
+              </v-btn>
+            </template>
+            <fill-model v-if="item.modelEditActive" :user="item" @close="item.modelEditActive = false"/>
+          </v-dialog>
+
         </template>
       </v-data-table>
     </v-card>
@@ -25,9 +30,11 @@
 
 <script>
 import gql from "graphql-tag";
+import FillModel from "./models/FillModel";
 
 export default {
   name: "Classes",
+  components: {FillModel},
   apollo: {
     getMyStudents: {
       query: gql`
