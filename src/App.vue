@@ -13,12 +13,7 @@ import Component from 'vue-class-component'
 
 @Component({})
 export default class App extends Vue {
-  setup() {
-    const cookies = useCookies()
-    return {
-      cookies,
-    }
-  }
+  cookies = useCookies();
 }
 </script>
 
