@@ -148,7 +148,7 @@ export default {
 
       //Kill the actual timeout
       clearTimeout(this.clearAvatarClickedTimesTimeout)
-      //Set avatarClickedTimes to 0 if not clicked again in 500ms
+      //Set avatarClickedTimes to 0 if not clicked again in 1000ms
       this.clearAvatarClickedTimesTimeout = setTimeout(()=>{
         this.avatarClickedTimes = 0;
         this.clearAvatarClickedTimesTimeout = null;
