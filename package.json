@@ -10,6 +10,7 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src"
   },
   "dependencies": {
+    "@lifeomic/axios-fetch": "^3.0.0",
     "@sweetalert2/theme-dark": "^5.0.10",
     "@types/apollo-upload-client": "^17.0.0",
     "@vue/composition-api": "^1.4.1",

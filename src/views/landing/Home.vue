@@ -27,7 +27,6 @@
 <script lang="ts">
 import {useUserStore} from "@/store";
 import {parseJWT} from "@/utils";
-import {genClient} from "@/vue-apollo";
 
 export default {
   name: "Home-Landing",
@@ -50,7 +49,6 @@ export default {
       })
       this.userStore.$state.user = parseJWT(localStorage.getItem("token"));
       this.userStore.$state.authState = "Logged";
-      genClient();
       this.$router.push("/board");
     }
   },

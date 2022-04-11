@@ -56,16 +56,18 @@ export default class NewModel extends Vue {
 
   async saveModel() {
     this.loading = true;
+    console.log(this.$refs.editor.getFields())
     await this.$apollo.mutate({
-      mutation: gql`mutation newDisorder($modelDocument: Disorder!, $pdfFile: Upload!){newDisorder(disorderDocument: $modelDocument, pdf: $pdfFile)}`,
+      mutation: gql`mutation newDisorder($modelDocument: InputDisorder!, $pdfFile: Upload!){newDisorder(disorderDocument: $modelDocument, pdf: $pdfFile)}`,
       variables: {
         modelDocument: {
           name: this.name,
-          description: this.description
+          description: this.description,
+          fields: this.$refs.editor.getFields()
         },
         pdfFile: new Blob([await this.$refs.editor.getPDF()], {
           type: "application/pdf"
-        })
+        }),
       },
     })
 
