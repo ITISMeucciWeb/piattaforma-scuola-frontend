@@ -19,7 +19,7 @@
                 </v-icon>
               </v-btn>
             </template>
-            <fill-model v-if="item.modelEditActive" :user="item" @close="item.modelEditActive = false"/>
+            <fill-model :user="item" @close="item.modelEditActive = false"/>
           </v-dialog>
 
         </template>
@@ -30,7 +30,7 @@
 
 <script>
 import gql from "graphql-tag";
-import FillModel from "./models/FillModel";
+import FillModel from "@/components/PDP/FillModel";
 
 export default {
   name: "Classes",

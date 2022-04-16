@@ -12,6 +12,9 @@
         <v-icon>mdi-close</v-icon>
       </v-btn>
     </v-toolbar>
+    <v-content>
+      <SimplePDFViewer ></SimplePDFViewer>
+    </v-content>
   </v-card>
 </template>
 
@@ -19,17 +22,24 @@
 import Vue from "vue";
 import Component from "vue-class-component";
 import gql from "graphql-tag";
+import SimplePDFViewer from "@/components/PDP/SimplePDFViewer.vue";
 
 
 const FillModelProps = Vue.extend({
   props: {
     user: Object
-  }
+  },
 });
 
-@Component({})
+@Component({
+  components: {
+    SimplePDFViewer
+  }
+})
 export default class FillModel extends FillModelProps {
-  mounted() {
+  async mounted() {
+
+
     console.log(this.user._id);
     this.$apollo.query({
       query: gql`
@@ -44,6 +54,16 @@ export default class FillModel extends FillModelProps {
         _id: this.user._id
       }
     })
+    const data = this.$apollo.query({
+      query: gql`
+        query getDisorder {
+           getDisorder(id: "6253be03272c92ffb31f733d") {
+              _id
+          }
+        }
+      `
+    })
+    console.log(await data);
   }
 }
 </script>

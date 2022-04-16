@@ -20,7 +20,8 @@
       "vue-class-component",
       "vue-dreaming-pdf",
       "@types/apollo-upload-client",
-      "apollo-link-context"
+      "apollo-link-context",
+      "pdfjs-dist"
     ],
     "paths": {
       "@/*": [
